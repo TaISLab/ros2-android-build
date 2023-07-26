@@ -20,12 +20,10 @@ ENV ANDROID_TOOLCHAIN_NAME aarch64-linux-android
 
 ENV ANDROID_NDK /opt/android/${ANDROID_NDK_VERSION}
 ENV CMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake
-ENV TZ=Asia/Tokyo
+ENV TZ=Europe/Madrid
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt update
-RUN apt install -y git vim cmake build-essential openjdk-8-jdk
-RUN apt install -y unzip wget gradle python3-pip
+RUN apt update && apt install -y git vim cmake build-essential openjdk-8-jdk unzip wget gradle python3-pip
 RUN pip3 install -U colcon-common-extensions vcstool lark colcon-ros-gradle
 
 RUN wget -O /tmp/android-ndk.zip https://dl.google.com/android/repository/${ANDROID_NDK_VERSION}-linux.zip && mkdir -p /opt/android/ && cd /opt/android/ && unzip -q /tmp/android-ndk.zip && rm /tmp/android-ndk.zip
